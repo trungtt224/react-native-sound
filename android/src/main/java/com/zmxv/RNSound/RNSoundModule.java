@@ -288,6 +288,11 @@ public class RNSoundModule extends ReactContextBaseJavaModule implements AudioMa
       player.pause();
     }
 
+    if (!this.mixWithOthers && key.equals(this.focusedPlayerKey)) {
+      AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+      audioManager.abandonAudioFocus(this);
+    }
+
     if (callback != null) {
       callback.invoke();
     }
